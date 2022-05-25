@@ -1,7 +1,14 @@
 const express = require("express");
+var cors = require("cors");
 const products = require("./data/products");
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Backend Server of COURSEJAM is Running...");
@@ -13,7 +20,7 @@ app.get("/api/products", (req, res) => {
 
 app.get("/api/products/:id", (req, res) => {
   const product = products.find((p) => {
-    return (p._id = req.params.id);
+    return p._id === req.params.id;
   });
   res.json(product);
 });
