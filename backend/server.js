@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import colors from "colors";
+import connectDB from "./config.js/db.js";
 import products from "./data/products.js";
 
 dotenv.config();
@@ -30,5 +32,6 @@ app.get("/api/products/:id", (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(
   PORT,
-  console.log(`COUESEJAM Backend Server Running at port ${PORT}`)
+  console.log(`COUESEJAM Backend Server Running at port ${PORT}`.yellow.bold)
 );
+connectDB();
