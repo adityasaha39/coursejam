@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import Message from "../components/Message";
@@ -8,6 +13,7 @@ import { addToCart, removeFromCart } from "../actions/cartActions";
 const CartScreen = () => {
   let { id } = useParams();
   const [searchParams] = useSearchParams();
+  const history = useNavigate();
 
   const productId = id;
   const qty = parseInt(searchParams.get("qty"));
@@ -16,6 +22,8 @@ const CartScreen = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     if (productId !== undefined) {
@@ -25,6 +33,14 @@ const CartScreen = () => {
 
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
+  };
+
+  const gotoCheckout = () => {
+    if (userInfo) {
+      history("/checkout");
+    } else {
+      history("/login");
+    }
   };
 
   return (
@@ -83,6 +99,7 @@ const CartScreen = () => {
                   type="button"
                   className="btn-block"
                   disabled={cartItems.length === 0}
+                  onClick={gotoCheckout}
                 >
                   Proceed to checkout
                 </Button>
