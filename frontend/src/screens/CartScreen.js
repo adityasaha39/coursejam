@@ -37,7 +37,7 @@ const CartScreen = () => {
 
   const gotoCheckout = () => {
     if (userInfo) {
-      history("/checkout");
+      history("/shipping");
     } else {
       history("/login");
     }
