@@ -12,6 +12,8 @@ import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
+import UserListScreen from "./screens/UserListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
 
 export const ApiConfig = {
   endpoint: "http://localhost:5000/api",
@@ -36,6 +38,11 @@ function App() {
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
             <Route path="/order/:orderId" element={<OrderScreen />} />
+            <Route path="/admin/userList" element={<UserListScreen />} />
+            <Route
+              path="/admin/user/:userId/edit"
+              element={<UserEditScreen />}
+            />
           </Routes>
         </Container>
       </main>
