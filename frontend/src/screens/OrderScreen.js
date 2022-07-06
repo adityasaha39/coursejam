@@ -1,17 +1,24 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { getOrderDetails } from "../actions/orderAction";
+import { getOrderDetails, deliverOrder } from "../actions/orderAction";
 
 const OrderScreen = () => {
   const { orderId } = useParams();
 
   const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -24,8 +31,20 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+    if (!order || successDeliver || order._id !== orderId) {
+      dispatch(getOrderDetails(orderId));
+      dispatch({
+        type: "ORDER_DELIVER_RESET",
+      });
+      dispatch({
+        type: "ORDER_LIST_MY_RESET",
+      });
+    }
+  }, [dispatch, orderId, order, successDeliver]);
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order));
+  };
 
   return (
     <>
@@ -53,7 +72,7 @@ const OrderScreen = () => {
                   </p>
                   {order.isDelivered ? (
                     <Message variant="success">
-                      Delivered on {order.deliverAt}
+                      Delivered on {order.deliveredAt}
                     </Message>
                   ) : (
                     <Message variant="danger">
@@ -137,6 +156,19 @@ const OrderScreen = () => {
                       <Col>Rs {order.totalPrice}</Col>
                     </Row>
                   </ListGroup.Item>
+                  {loadingDeliver && <Loader />}
+
+                  {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                    <ListGroup.Item>
+                      <Button
+                        type="button"
+                        className="btn btn-block"
+                        onClick={deliverHandler}
+                      >
+                        Mark As Delivered
+                      </Button>
+                    </ListGroup.Item>
+                  )}
                 </ListGroup>
               </Card>
             </Col>
