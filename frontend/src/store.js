@@ -7,10 +7,12 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productListReducer,
+  productTopRatedReducers,
   productDetailsReducer,
   productCreateReducers,
   productDeleteReducers,
   productUpdateReducers,
+  productReviewCreateReducers,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
@@ -33,10 +35,12 @@ import {
 
 const reducer = combineReducers({
   productList: productListReducer,
+  productTopRated: productTopRatedReducers,
   productDetails: productDetailsReducer,
   productCreate: productCreateReducers,
   productDelete: productDeleteReducers,
   productUpdate: productUpdateReducers,
+  productReviewCreate: productReviewCreateReducers,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
