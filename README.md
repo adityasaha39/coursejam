@@ -7,6 +7,8 @@
 
 ### To start these project in the localhost setup :-
 
+- Star and Fork these repo and clone your repo in the local setup
+
 - First create a env file in the backend folder it is kept hidden for security purposes, here the code for .env file
     ``` 
     NODE_ENV = developement
@@ -24,7 +26,7 @@
 
 - Happy codding and debuging :)
     ```
-    Thanks 
+    Thanks
     Aditya Saha
 
 ## Authors
@@ -33,7 +35,7 @@
 
 
 ## 🚀 About Me
-I am final student from National Institute Of Technology, Agartala
+I am final year UG student from National Institute Of Technology, Agartala
 
 
 
