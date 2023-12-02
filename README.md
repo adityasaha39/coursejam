@@ -1,6 +1,6 @@
 # COURSEJAM
 
-### An E-commerce website for various course selling
+### An E-commerce website for various course selling by Aditya Saha(SDE at Caastle)
 
 
 ## Documentation
